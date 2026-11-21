@@ -4,6 +4,8 @@ Review a code change by following its call graph, not by reading file after file
 
 reviewmap opens a local page that shows the functions a change touches as a map of who calls what. It then walks you through the code in the order it runs: start where the flow begins, step into each call, and see a changed definition before the code that uses it.
 
+https://github.com/user-attachments/assets/4025f48d-03f1-48ed-b83e-cfbc21e39e0f
+
 ![reviewmap](docs/screenshot.png)
 
 ## Why
