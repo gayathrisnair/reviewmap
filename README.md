@@ -51,11 +51,62 @@ There's nothing to install. It's a single file using only the Python standard li
 
 ## Install
 
+There's nothing to install. reviewmap is a single Python file that uses only the standard library.
+
+**1. Download it**
+
+Either:
+- **From the browser:** open [`reviewmap.py`](reviewmap.py) above and click the **Download raw file** button (the ↓ icon at the top right of the file). Or grab it from the [latest release](../../releases/latest).
+- **From the terminal:**
+  ```sh
+  curl -O https://raw.githubusercontent.com/<you>/reviewmap/main/reviewmap.py
+  ```
+
+**2. Run it** from inside the git repo you want to look at. Pick what you want to see:
+
 ```sh
-curl -O https://raw.githubusercontent.com/<you>/reviewmap/main/reviewmap.py
+# Your branch: everything it changes compared to main,
+# both committed and not yet committed
+python3 /path/to/reviewmap.py --base main
+
+# Two branches or commits, e.g. a teammate's branch
+python3 /path/to/reviewmap.py --base main --head their-branch
+
+# A GitHub pull request (needs the gh CLI)
+python3 /path/to/reviewmap.py --pr 123
+
+# No change at all: understand how one function works end to end
+python3 /path/to/reviewmap.py --trace Class.method
 ```
 
-Or clone this repo.
+Reviewing needs a difference to show. If you're on `main` with nothing changed, `--base main` finds nothing. Switch to a branch with changes, pass `--head`/`--pr`, or use `--trace`, which works on any code.
+
+It opens your browser with a link ending in `?t=…`. Use that exact link: typing the address by hand won't work.
+
+**3. Optional: make it a `reviewmap` command** so you can run it from anywhere:
+
+```sh
+chmod +x reviewmap.py
+mkdir -p ~/.local/bin
+mv reviewmap.py ~/.local/bin/reviewmap
+```
+
+If `~/.local/bin` isn't on your PATH yet (macOS usually doesn't have it), add it once:
+
+```sh
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc && source ~/.zshrc
+```
+
+Now, in any repo:
+
+```sh
+reviewmap --base main
+reviewmap --trace Class.method
+```
+
+To update later, download the file again over the old one.
+
+On Windows, skip step 3 and run `python reviewmap.py …`.
 
 ## Usage
 
